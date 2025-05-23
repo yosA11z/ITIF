@@ -95,4 +95,10 @@ document.addEventListener('DOMContentLoaded', async () => {
       mensaje.textContent = 'Error al actualizar nota: ' + error.message;
     }
   });
+
+  document.querySelector('.btn-volver').addEventListener('click', () => {
+  window.location.href = 'profesor.html';
+});
+
+
 });
