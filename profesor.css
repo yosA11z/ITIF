@@ -1,0 +1,85 @@
+/* Fondo general con degradado sutil */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 1.5rem 2rem;
+  background-image: url(Sprite-0002.png);
+  color: #f1f1f1;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+}
+
+/* Etiquetas */
+label {
+  display: block;
+  margin-top: 1.25rem;
+  font-weight: 600;
+  color: #ffffff;
+  letter-spacing: 0.02em;
+}
+
+/* Campos de formulario y botón */
+input, textarea, select, button {
+  width: 100%;
+  padding: 0.65rem 0.75rem;
+  margin-top: 0.4rem;
+  box-sizing: border-box;
+  border: 1.5px solid #0181fa;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  font-family: inherit;
+  color: #030303;
+}
+
+/* Efecto foco para inputs y select */
+input:focus, textarea:focus, select:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 6px rgba(0, 123, 255, 0.3);
+  outline: none;
+}
+
+/* Botón principal */
+button {
+  margin-top: 1.75rem;
+  background-color: #007bff;
+  color: #faf9f9;
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 1.05rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover del botón */
+button:hover {
+  background-color: #0056b3;
+  box-shadow: 0 6px 15px rgba(0, 86, 179, 0.5);
+}
+
+/* Contenedor de lista de recordatorios */
+#lista-recordatorios {
+  margin-top: 2.5rem;
+  background: #b3a9a9;
+  padding: 1.25rem 1.5rem;
+  border-radius: 8px;
+  max-height: 220px;
+  overflow-y: auto;
+  border: 1.5px solid #0160ee;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+/* Items individuales de recordatorio */
+.recordatorio-item {
+  padding: 0.6rem 0;
+  border-bottom: 1px solid #eee;
+  font-size: 0.95rem;
+  color: #000000;
+}
+
+.recordatorio-item:last-child {
+  border-bottom: none;
+}
