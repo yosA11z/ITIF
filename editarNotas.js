@@ -1,4 +1,4 @@
-const API_URL = 'https://script.google.com/macros/s/AKfycby7ccbxDLRE76jIsOXgW38JlPi0TRwlwuWtaQ3ez6-WnipgEVz8r_fn-5zQc_R7njCt/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbwqjmsgX5v1kvx94Q913Yym1MkbwxqAyKURxASeBzZfSK9MHUUQFc6Konvjwb2Q58pQ/exec';
 
 document.addEventListener('DOMContentLoaded', () => {
   const selectEstudiante = document.getElementById('estudiante');
