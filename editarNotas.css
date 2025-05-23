@@ -87,43 +87,97 @@ button:hover {
 }
 
 .btn-volver {
-  position: absolute;
-  bottom: 20px;
-  left: 20px;
-  display: flex;
-  align-items: center;
-  background-color: white;
-  color: black;
-  border: none;
-  border-radius: 16px;
-  padding: 8px 14px;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  overflow: hidden;
-  transition: background-color 0.3s ease;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  width: auto;              /* <--- Esto asegura que no sea ancho fijo */
-  max-width: 200px;         /* <--- Por si acaso quieres un límite */
+  position: fixed !important;
+  bottom: 10px !important;
+  left: 40px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  padding: 5px 10px !important;
+  max-width: 130px !important;
+  width: auto !important;
+  background-color: #ffffff !important;
+  color: #111827 !important;
+  border: 2px solid #006cf8 !important;
+  border-radius: 9999px !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08) !important;
+  z-index: 10000 !important; /* un poco más alto por si acaso */
+  user-select: none !important;
+  white-space: nowrap !important;
 }
 
-
 .btn-volver:hover {
-  background-color: #005bb5; /* verde suave */
+  background-color: #81deee !important;
+  transform: translateY(-2px);
+}
+
+.btn-volver:active {
+  transform: scale(0.95);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
 }
 
 .btn-volver .icono {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 10px;
   transition: transform 0.3s ease;
 }
 
 .btn-volver:hover .icono {
-  transform: translateX(5px);
+  transform: translateX(-4px);
 }
 
 .btn-volver .texto {
-  transition: transform 0.3s ease;
+  transition: color 0.3s ease;
+}
+
+/* Tooltip personalizado */
+.btn-volver[title] {
+  position: relative;
+}
+
+.btn-volver[title]:hover::after {
+  content: attr(title);
+  position: absolute;
+  bottom: 120%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #111827;
+  color: #ffffff;
+  padding: 6px 10px;
+  border-radius: 6px;
+  white-space: nowrap;
+  font-size: 12px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  animation: showTooltip 0.3s forwards;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+@keyframes showTooltip {
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-4px);
+  }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .btn-volver {
+    bottom: 10px;
+    left: 10px;
+    font-size: 13px;
+    padding: 5px 10px;
+    max-width: 120px;
+  }
+
+  .btn-volver svg {
+    height: 20px;
+    width: 20px;
+  }
 }
