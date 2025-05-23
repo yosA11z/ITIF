@@ -1,17 +1,21 @@
 import fetch from "node-fetch";
 
 export default async function handler(req, res) {
-  const url = "https://script.google.com/macros/s/AKfycbwgQy9i14PMCdUwuh9keinTrMs2Ij9OruxWGYiYY-_HOZdmT2MA3IEF7-HHbyr7jIw/exec"; // Cambia aquí por tu URL
+  const url = "https://script.google.com/macros/s/AKfycbzBM8aAQ-8a0HGZOxnDGKEVZLNWfI1UmQEuk43yYjo_OHy2VJ2rMJ7NvXIg33GJqMml/exec"; // ← reemplaza TU_URL con el ID de tu App Script
 
   try {
     const response = await fetch(url);
-    const data = await response.text(); // Usamos text para evitar errores si no es JSON válido
+    const text = await response.text();
 
-    // Aquí agregamos los headers para permitir CORS
+    let data;
+    try {
+      data = JSON.parse(text);
+    } catch {
+      return res.status(500).json({ error: "Respuesta inválida del servidor: " + text });
+    }
+
     res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader("Content-Type", "application/json");
-    res.status(200).send(data);
-
+    res.status(200).json(data);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
