@@ -1,4 +1,4 @@
-const API_URL = 'https://script.google.com/macros/s/AKfycbwqjmsgX5v1kvx94Q913Yym1MkbwxqAyKURxASeBzZfSK9MHUUQFc6Konvjwb2Q58pQ/exec';
+const API_URL = ('/api/proxy');
 
 document.addEventListener('DOMContentLoaded', () => {
   const selectEstudiante = document.getElementById('estudiante');
