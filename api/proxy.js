@@ -2,7 +2,7 @@ import fetch from 'node-fetch';
 
 export default async function handler(req, res) {
   try {
-    const apiUrl = 'https://script.google.com/macros/s/AKfycbwqjmsgX5v1kvx94Q913Yym1MkbwxqAyKURxASeBzZfSK9MHUUQFc6Konvjwb2Q58pQ/exec';
+    const apiUrl = 'https://script.google.com/macros/s/AKfycbx5sHUFq9DV1FRkrCDOZlIcIqycKiXxulmUYtBuvBlupkZVMfLzbf_D1BcCM80QRwKB/exec';
 
     const fetchOptions = {
       method: req.method,
