@@ -1,125 +1,95 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
   console.log("DOM cargado");
 
+  // 🔑 Inicializar Supabase correctamente
+  const supabaseUrl = "https://aamvnpvfzmnrrfurovuv.supabase.co";
+  const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFhbXZucHZmem1ucnJmdXJvdnV2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgwNjI2NDUsImV4cCI6MjA2MzYzODY0NX0._OigReH-zPR9AfGE5L9Rw9H71AnxQzH7T5k93mjPj5E";
+  const supabase = window.supabase.createClient(supabaseUrl, supabaseAnonKey);
+
+  // 👤 Validar sesión
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
   if (!currentUser) {
-    alert("No has iniciado sesión. Por favor inicia sesión primero.");
+    alert("No has iniciado sesión.");
     window.location.href = "iniciarSesion.html";
     return;
   }
 
   const userEmail = currentUser.email.trim().toLowerCase();
-  console.log("Usuario actual:", userEmail);
+  const nombreUsuarioSpan = document.getElementById("nombre-usuario");
+  nombreUsuarioSpan.textContent = currentUser.name || "";
 
-  const url = `https://script.google.com/macros/s/AKfycbxPUWzzB1P8wNWJX2kB1SN2wVyiIj3jm_-Ck4KpaZw858PkGrMnaUmMrmI1CKlzR0R5/exec`; // tu API correcta
+  // 🔁 Obtener datos desde Supabase
+  try {
+    const { data: estudiante, error: errEst } = await supabase
+      .from("estudiantes")
+      .select("id, nombre, correo")
+      .eq("correo", userEmail)
+      .single();
 
-  fetch(url)
-    .then(res => {
-      if (!res.ok) throw new Error(`Error HTTP: ${res.status}`);
-      return res.json();
-    })
-    .then(data => {
-      console.log("Datos recibidos:", data);
+    if (errEst || !estudiante) throw new Error("Estudiante no encontrado");
 
-      const usuariosValidos = data.filter(item =>
-        item.hasOwnProperty("correo") && typeof item.correo === "string"
-      );
+    const { data: notas, error: errNotas } = await supabase
+      .from("notas")
+      .select("nota, materia: materia_id (nombre)")
+      .eq("estudiante_id", estudiante.id);
 
-      if (usuariosValidos.length === 0) {
-        console.warn("No se encontraron usuarios válidos con propiedad 'correo'.");
-        return;
+    if (errNotas) throw errNotas;
+
+    const thead = document.querySelector("#tabla-notas thead tr");
+    const tbody = document.querySelector("#tabla-notas tbody");
+
+    thead.innerHTML = "<th>Nombre</th>";
+    tbody.innerHTML = "";
+
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td>${estudiante.nombre}</td>`;
+
+    notas.forEach(notaObj => {
+      const materia = notaObj.materia?.nombre || "Materia";
+      const notaStr = notaObj.nota;
+      let colorClass = "";
+
+      switch (notaStr) {
+        case "DJ":
+          colorClass = "nota-roja";
+          break;
+        case "DB":
+        case "DA":
+          colorClass = "nota-amarilla";
+          break;
+        case "DS":
+          colorClass = "nota-verde";
+          break;
       }
 
-      const usuario = usuariosValidos.find(item =>
-        item.correo.trim().toLowerCase() === userEmail
-      );
+      let contenidoCelda = notaStr || "-";
+      if (notaStr === "DB" || notaStr === "DBJ") {
+        const materiaKey = materia.toLowerCase();
+        let urlSugerencia = "sugerencias.html";
+        if (materiaKey.includes("física") || materiaKey.includes("fisica"))
+          urlSugerencia = "sugerenciasFisica.html";
+        else if (materiaKey.includes("química") || materiaKey.includes("quimica"))
+          urlSugerencia = "sugerenciasQuimica.html";
 
-      if (!usuario) {
-        alert("Usuario no encontrado en los registros. Verifica que tu correo sea correcto.");
-        return;
+        contenidoCelda = `
+          ${notaStr}<br>
+          <a href="${urlSugerencia}" class="sugerencia-btn">Sugerencias</a>
+        `;
       }
 
-      const thead = document.querySelector("#tabla-notas thead tr");
-      thead.innerHTML = "<th>Nombre</th>";
-
-      Object.keys(usuario).forEach(key => {
-        if (key !== "nombre" && key !== "correo") {
-          thead.innerHTML += `<th>${key}</th>`;
-        }
-      });
-
-      const tbody = document.querySelector("#tabla-notas tbody");
-      tbody.innerHTML = "";
-
-      const tr = document.createElement("tr");
-      tr.innerHTML = `<td>${usuario.nombre}</td>`;
-
-      Object.keys(usuario).forEach(key => {
-        if (key !== "nombre" && key !== "correo") {
-          const notaStr = usuario[key];
-          let colorClass = "";
-
-          switch (notaStr) {
-            case "DJ":
-              colorClass = "nota-roja";
-              break;
-            case "DB":
-            case "DA":
-              colorClass = "nota-amarilla";
-              break;
-            case "DS":
-              colorClass = "nota-verde";
-              break;
-            default:
-              colorClass = "";
-          }
-
-          let contenidoCelda = notaStr || "-";
-
-          // Mostrar sugerencias si nota es DB o DBJ
-          if (notaStr === "DBJ" || notaStr === "DB") {
-            colorClass = "nota-roja"; // o "nota-amarilla" si prefieres para DB
-            let urlSugerencia = "sugerencias.html";
-            if (key.toLowerCase() === "fisica" || key.toLowerCase() === "física") {
-              urlSugerencia = "sugerenciasFisica.html";
-            } else if (key.toLowerCase() === "quimica" || key.toLowerCase() === "química") {
-              urlSugerencia = "sugerenciasQuimica.html";
-            }
-
-            contenidoCelda = `
-              ${notaStr}<br>
-              <a href="${urlSugerencia}" class="sugerencia-btn">Sugerencias</a>
-            `;
-          }
-
-          tr.innerHTML += `<td class="${colorClass}">${contenidoCelda}</td>`;
-        }
-      });
-
-      tbody.appendChild(tr);
-    })
-    .catch(err => {
-      console.error("Error al cargar las notas:", err);
-      alert("Hubo un problema al cargar las notas. Intenta más tarde.");
+      thead.innerHTML += `<th>${materia}</th>`;
+      tr.innerHTML += `<td class="${colorClass}">${contenidoCelda}</td>`;
     });
 
-  const nombreUsuarioSpan = document.getElementById("nombre-usuario");
-  if (currentUser && currentUser.name) {
-    nombreUsuarioSpan.textContent = currentUser.name;
+    tbody.appendChild(tr);
+
+  } catch (err) {
+    console.error("Error al cargar las notas:", err);
+    alert("Error al cargar tus notas.");
   }
 
-  document.getElementById("logout-btn").addEventListener("click", () => {
-    localStorage.removeItem("currentUser");
-    window.location.href = "iniciarSesion.html";
-  });
-
-    // Modo oscuro/claro
-  const botonModo = document.createElement("button");
-  botonModo.id = "modo-toggle";
-  botonModo.innerText = "🌙 Modo Oscuro";
-  document.body.appendChild(botonModo);
-
-  // Aplicar modo guardado
+  // 🌙 Modo oscuro/claro
+  const botonModo = document.getElementById("modo-toggle");
   const modoGuardado = localStorage.getItem("modo");
   if (modoGuardado === "oscuro") {
     document.body.classList.add("modo-oscuro");
@@ -133,5 +103,14 @@ document.addEventListener("DOMContentLoaded", () => {
     botonModo.innerText = modoActual === "oscuro" ? "☀️ Modo Claro" : "🌙 Modo Oscuro";
   });
 
+  // 📤 Logout
+  document.getElementById("logout-btn").addEventListener("click", () => {
+    localStorage.removeItem("currentUser");
+    window.location.href = "iniciarSesion.html";
+  });
 
+  // 📅 Calendario
+  document.getElementById("btn-ver-calendario").addEventListener("click", () => {
+    window.location.href = "calendario.html";
+  });
 });
