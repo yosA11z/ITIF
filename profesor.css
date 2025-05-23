@@ -1,14 +1,14 @@
 /* Fondo general con degradado sutil */
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  max-width: 500px;
-  margin: 2rem auto;
-  padding: 1.5rem 2rem;
   background-image: url(Sprite-0002.png);
-  color: #f1f1f1;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-  border-radius: 10px;
+  background-size: cover;
+  background-position: center;
+  margin: 0;
+  padding: 2rem;
+  color: #fff;
 }
+
 
 /* Etiquetas */
 label {
@@ -63,7 +63,7 @@ button:hover {
 /* Contenedor de lista de recordatorios */
 #lista-recordatorios {
   margin-top: 2.5rem;
-  background: #b3a9a9;
+  background: #f8f8f8;
   padding: 1.25rem 1.5rem;
   border-radius: 8px;
   max-height: 220px;
@@ -83,3 +83,16 @@ button:hover {
 .recordatorio-item:last-child {
   border-bottom: none;
 }
+
+.tarjeta {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: #fff;
+  color: #000;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  position: relative;
+  top: -1rem; /* súbelo más si quieres */
+}
+

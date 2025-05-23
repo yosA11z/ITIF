@@ -5,54 +5,58 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="profesor.css">
   <title>Panel de Profesor - Crear Recordatorios</title>
-  
 </head>
 <body>
 
-  <h1>Crear Recordatorio</h1>
+  <!-- Tarjeta que envuelve todo -->
+  <div class="tarjeta">
 
-  <form id="form-recordatorio">
-    <label for="materia">Materia</label>
-    <select id="materia" required>
-      <option value="">Selecciona una materia</option>
-      <option value="Fisica">Fisica</option>
-      <option value="Quimica">Quimica</option>
-      <option value="Ciencias Sociales">Ciencias Sociales</option>
-      <option value="Economia y Politica">Economia y Politica</option>
-      <option value="Artistica">Artistica</option>
-      <option value="Etica y Religion">Etica y Religion</option>
-      <option value="Edu.Fisica">Edu.Fisica</option>
-      <option value="Lenguaje">Lenguaje</option>
-      <option value="Ingles">Ingles</option>
-      <option value="Matematicas">Matematicas</option>
-      <option value="Gestion Empresarial">Gestion Empresarial</option>
-      <option value="Tecnología">Tecnología</option>
-      <option value="Filosofia">Filosofia</option>
-      <option value="Taller">Taller</option>
-      <option value="Convivencia">Convivencia</option>
-    </select>
+    <h1>Crear Recordatorio</h1>
 
-    <label for="fecha">Fecha</label>
-    <input type="date" id="fecha" required />
+    <form id="form-recordatorio">
+      <label for="materia">Materia</label>
+      <select id="materia" required>
+        <option value="">Selecciona una materia</option>
+        <option value="Fisica">Fisica</option>
+        <option value="Quimica">Quimica</option>
+        <option value="Ciencias Sociales">Ciencias Sociales</option>
+        <option value="Economia y Politica">Economia y Politica</option>
+        <option value="Artistica">Artistica</option>
+        <option value="Etica y Religion">Etica y Religion</option>
+        <option value="Edu.Fisica">Edu.Fisica</option>
+        <option value="Lenguaje">Lenguaje</option>
+        <option value="Ingles">Ingles</option>
+        <option value="Matematicas">Matematicas</option>
+        <option value="Gestion Empresarial">Gestion Empresarial</option>
+        <option value="Tecnología">Tecnología</option>
+        <option value="Filosofia">Filosofia</option>
+        <option value="Taller">Taller</option>
+        <option value="Convivencia">Convivencia</option>
+      </select>
 
-    <label for="descripcion">Descripción</label>
-    <textarea id="descripcion" rows="3" placeholder="Escribe la descripción del recordatorio..." required></textarea>
+      <label for="fecha">Fecha</label>
+      <input type="date" id="fecha" required />
 
-    <button type="submit">Guardar Recordatorio</button>
-  </form>
+      <label for="descripcion">Descripción</label>
+      <textarea id="descripcion" rows="3" placeholder="Escribe la descripción del recordatorio..." required></textarea>
 
-  <h2>Recordatorios Guardados</h2>
-  <div id="lista-recordatorios">
-    <!-- Aquí se mostrarán los recordatorios -->
+      <button type="submit">Guardar Recordatorio</button>
+    </form>
+
+    <h2>Recordatorios Guardados</h2>
+    <div id="lista-recordatorios">
+      <!-- Aquí se mostrarán los recordatorios -->
+    </div>
+
+    <button id="notas-btn">Notas Estudiantes</button>
+    <button id="logout-btn">Cerrar sesión</button>
+
   </div>
 
   <script>
-    // Aquí irá la lógica JS para guardar y mostrar los recordatorios, que te puedo ayudar a hacer después
+    // Aquí irá la lógica JS para guardar y mostrar los recordatorios
   </script>
 
-  <button id="notas-btn">Notas Estudiantes</button>
-  <button id="logout-btn">Cerrar sesión</button>
-
-    <script src="profesor.js"></script>
+  <script src="profesor.js"></script>
 </body>
 </html>
