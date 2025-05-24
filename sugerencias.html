@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sugerencias</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 2em; 
+      background: url("Sprite-0002.png");
+    }
+    .volver { margin-top: 2em; display: inline-block;
+      color: white;
+    }
+
+    #sugerencia-texto {
+      color: white;
+    }
+
+    h1 {
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <h1>Sugerencias para la materia</h1>
+  <p id="sugerencia-texto"></p>
+
+  <a href="estudiante.html" class="volver">← Volver a Mis Notas</a>
+
+  <script>
+    // Objeto con sugerencias (igual que en JS original)
+    const sugerenciasPorMateria = {
+      "Fisica": "Repasa los conceptos básicos de dinámica y cinemática.",
+      "Quimica": "Revisa la tabla periódica y las reacciones químicas más comunes.",
+      "Matematicas": "Practica ejercicios de álgebra y resolución de ecuaciones.",
+      // más materias aquí
+    };
+
+    // Función para obtener query param
+    function obtenerParametroUrl(nombre) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(nombre);
+    }
+
+    const materia = obtenerParametroUrl("materia");
+    const pSugerencia = document.getElementById("sugerencia-texto");
+
+    if (materia && sugerenciasPorMateria[materia]) {
+      pSugerencia.textContent = sugerenciasPorMateria[materia];
+    } else if (materia) {
+      pSugerencia.textContent = "No hay sugerencias para esta materia.";
+    } else {
+      pSugerencia.textContent = "No hay sugerencias para esta materia.";
+    }
+  </script>
+</body>
+</html>

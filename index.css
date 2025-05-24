@@ -1,0 +1,76 @@
+/* Fuente elegante (puedes cambiarla si gustas) */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  position: relative;
+  height: 100vh;
+  margin: 0;
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: url('Sprite-0002.png') no-repeat center center fixed;
+  background-size: cover;
+  opacity: 11.4; /* Aquí bajas la opacidad del fondo */
+  z-index: -2;
+}
+
+.overlay {
+  position: relative;
+  background: rgba(0, 0, 0, 0.6); /* Capa oscura para el contraste */
+  padding: 40px;
+  border-radius: 20px;
+  text-align: center;
+  z-index: 1;
+  animation: fadeIn 1.5s ease-in-out;
+}
+
+
+.titulo {
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+}
+
+.btn-ingresar {
+  padding: 15px 40px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: white;
+  background-color: #4caf50;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-ingresar:hover {
+  background-color: #43a047;
+  transform: scale(1.05);
+}
+
+/* Animación de entrada */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

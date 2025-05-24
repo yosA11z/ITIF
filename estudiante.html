@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Mis Notas</title>
+  <link rel="stylesheet" href="estudiante.css" />
+</head>
+<body>
+  <button id="logout-btn">Cerrar sesión</button>
+  <button id="modo-toggle">🌙 Cambiar modo</button>
+  <h1>Mis notas</h1>
+  <button id="btn-ver-calendario">Ver Calendario</button>
+  <h3>Bienvenido, <span id="nombre-usuario"></span></h3>
+
+  <div class="table-container">
+    <table id="tabla-notas">
+      <thead>
+        <tr>
+          <!-- JS insertará encabezados -->
+        </tr>
+      </thead>
+      <tbody>
+        <!-- JS insertará filas -->
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    document.getElementById("btn-ver-calendario").addEventListener("click", () => {
+      window.location.href = "calendario.html";
+    });
+  </script>
+  <script src="estudiante.js"></script>
+</body>
+</html>

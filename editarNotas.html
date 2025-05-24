@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Editar Notas</title>
+  <link rel="stylesheet" href="editarNotas.css" />
+</head>
+<body>
+  <div class="formulario">
+    <h2>Modificar Nota</h2>
+
+    <label for="estudiante">Estudiante:</label>
+    <select id="estudiante" required>
+      <option value="" disabled selected>Seleccione un estudiante</option>
+    </select>
+
+    <label for="asignatura">Asignatura:</label>
+    <select id="asignatura" required>
+      <option value="" disabled selected>Seleccione una asignatura</option>
+    </select>
+
+    <label for="nuevaNota">Nueva Nota:</label>
+    <select id="nuevaNota" required>
+      <option value="" disabled selected>Seleccione una nota</option>
+      <option value="DBJ">DBJ</option>
+      <option value="DB">DB</option>
+      <option value="DA">DA</option>
+      <option value="DS">DS</option>
+    </select>
+
+    <button id="btnActualizar">Actualizar Nota</button>
+    <p id="mensaje"></p>
+  </div>
+
+  <script src="editarNotas.js"></script>
+</body>
+</html>
