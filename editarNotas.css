@@ -16,6 +16,9 @@ body {
   align-items: center;
   height: 100vh;
   background-image: url(Sprite-0002.png);
+  background-size: cover;
+  background-position: center;
+  padding: 0 20px;
 }
 
 .formulario {
@@ -83,9 +86,10 @@ button:hover {
   font-weight: 600;
   font-size: 0.95rem;
   color: #1aa744;
-  min-height: 24px; /* para que no salte el layout cuando aparece texto */
+  min-height: 24px;
 }
 
+/* Botón volver */
 .btn-volver {
   position: fixed !important;
   bottom: 10px !important;
@@ -105,7 +109,7 @@ button:hover {
   cursor: pointer !important;
   transition: all 0.3s ease !important;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08) !important;
-  z-index: 10000 !important; /* un poco más alto por si acaso */
+  z-index: 10000 !important;
   user-select: none !important;
   white-space: nowrap !important;
 }
@@ -167,7 +171,43 @@ button:hover {
 }
 
 /* Responsive */
-@media (max-width: 600px) {
+
+@media (max-width: 768px) {
+  body {
+    align-items: flex-start;
+    padding-top: 30px;
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .formulario {
+    width: 90%;
+    padding: 25px 20px;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+
+  label {
+    font-size: 0.9rem;
+  }
+
+  select {
+    font-size: 0.95rem;
+    padding: 9px 12px;
+  }
+
+  button {
+    font-size: 1rem;
+    padding: 10px 0;
+  }
+
+  #mensaje {
+    font-size: 0.9rem;
+  }
+
   .btn-volver {
     bottom: 10px;
     left: 10px;
@@ -179,5 +219,42 @@ button:hover {
   .btn-volver svg {
     height: 20px;
     width: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .formulario {
+    width: 100%;
+    padding: 20px 15px;
+    margin: 0 10px;
+  }
+
+  h2 {
+    font-size: 1.2rem;
+  }
+
+  label, #mensaje {
+    font-size: 0.85rem;
+  }
+
+  select {
+    font-size: 0.9rem;
+    padding: 8px 10px;
+  }
+
+  button {
+    font-size: 0.95rem;
+    padding: 10px 0;
+  }
+
+  .btn-volver {
+    font-size: 12px;
+    padding: 4px 8px;
+    gap: 6px;
+  }
+
+  .btn-volver svg {
+    height: 18px;
+    width: 18px;
   }
 }
