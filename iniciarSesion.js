@@ -1,36 +1,55 @@
+console.log("iniciarSesion.js cargado");
+
 const loginButton = document.querySelector("#login-button");
 
-loginButton.addEventListener("click", (e) => {
-  e.preventDefault();
+if (!loginButton) {
+  console.error("No se encontró el botón de login.");
+} else {
+  console.log("Botón de login encontrado");
 
-  const email = document.querySelector("#correo").value.trim().toLowerCase();
-  const password = document.querySelector("#contraseña").value;
+  loginButton.addEventListener("click", async (e) => {
+    e.preventDefault();
+    
+    if (typeof supabase === "undefined") {
+      console.error("❌ Supabase no está definido");
+      return;
+    }
 
-  // Obtener usuarios guardados en localStorage
-  const users = JSON.parse(localStorage.getItem("users")) || [];
+    const codigo = document.querySelector("#codigo").value.trim();
+    const password = document.querySelector("#contraseña").value;
 
-  // Buscar usuario válido por email y contraseña
-  const validUser = users.find(
-    (user) => user.email.toLowerCase() === email && user.password === password
-  );
+    if (!codigo || !password) {
+      alert("Por favor ingresa código y contraseña.");
+      return;
+    }
 
-  if (!validUser) {
-    alert("¡Usuario o contraseña incorrectos!");
-    return;
-  }
+    console.log("Intentando iniciar sesión con:", { codigo, password });
 
-  // Guardar usuario actual en localStorage
-  localStorage.setItem("currentUser", JSON.stringify(validUser));
-  localStorage.setItem("userName", validUser.name || validUser.email);
+    try {
+      const { data, error } = await supabase
+        .from("estudiantes")
+        .select("*")
+        .eq("codigo_estudiante", codigo)
+        .eq("contrasena", password)
+        .single();
 
-  alert(`Bienvenido ${validUser.name || validUser.email}`);
+      console.log("Resultado:", { data, error });
 
-  // Redirigir según el rol del usuario
-  if (validUser.rol === "Profesor") {
-    window.location.href = "profesor.html";
-  } else if (validUser.rol === "Estudiante") {
-    window.location.href = "estudiante.html";
-  } else {
-    alert("Rol no reconocido. Contacta con soporte.");
-  }
-});
+      if (error || !data) {
+        alert("Código o contraseña incorrectos.");
+        return;
+      }
+
+      alert(`Bienvenido ${data.nombre}`);
+
+      // ✅ Guardamos el usuario por su código
+      localStorage.setItem("currentUser", JSON.stringify(data));
+      localStorage.setItem("userName", data.nombre);
+
+      window.location.href = "estudiante.html";
+    } catch (err) {
+      console.error("Error inesperado al iniciar sesión:", err);
+      alert("Ocurrió un error al iniciar sesión.");
+    }
+  });
+}

@@ -1,12 +1,10 @@
 document.addEventListener("DOMContentLoaded", async () => {
   console.log("DOM cargado");
 
-  // 🔑 Inicializar Supabase correctamente
   const supabaseUrl = "https://aamvnpvfzmnrrfurovuv.supabase.co";
   const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFhbXZucHZmem1ucnJmdXJvdnV2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgwNjI2NDUsImV4cCI6MjA2MzYzODY0NX0._OigReH-zPR9AfGE5L9Rw9H71AnxQzH7T5k93mjPj5E";
   const supabase = window.supabase.createClient(supabaseUrl, supabaseAnonKey);
 
-  // 👤 Validar sesión
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
   if (!currentUser) {
     alert("No has iniciado sesión.");
@@ -14,16 +12,15 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
   }
 
-  const userEmail = currentUser.email.trim().toLowerCase();
+  const codigoEstudiante = currentUser.codigo_estudiante;
   const nombreUsuarioSpan = document.getElementById("nombre-usuario");
-  nombreUsuarioSpan.textContent = currentUser.name || "";
+  nombreUsuarioSpan.textContent = currentUser.nombre || "";
 
-  // 🔁 Obtener datos desde Supabase
   try {
     const { data: estudiante, error: errEst } = await supabase
       .from("estudiantes")
-      .select("id, nombre, correo")
-      .eq("correo", userEmail)
+      .select("id, nombre, codigo_estudiante")
+      .eq("codigo_estudiante", codigoEstudiante)
       .single();
 
     if (errEst || !estudiante) throw new Error("Estudiante no encontrado");
@@ -88,7 +85,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     alert("Error al cargar tus notas.");
   }
 
-  // 🌙 Modo oscuro/claro
   const botonModo = document.getElementById("modo-toggle");
   const modoGuardado = localStorage.getItem("modo");
   if (modoGuardado === "oscuro") {
@@ -103,13 +99,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     botonModo.innerText = modoActual === "oscuro" ? "☀️ Modo Claro" : "🌙 Modo Oscuro";
   });
 
-  // 📤 Logout
   document.getElementById("logout-btn").addEventListener("click", () => {
     localStorage.removeItem("currentUser");
     window.location.href = "iniciarSesion.html";
   });
 
-  // 📅 Calendario
   document.getElementById("btn-ver-calendario").addEventListener("click", () => {
     window.location.href = "calendario.html";
   });
